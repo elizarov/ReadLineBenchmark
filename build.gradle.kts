@@ -31,9 +31,3 @@ val jmhJar by tasks.getting(Jar::class) {
     archiveVersion.set("")
     destinationDirectory.set(rootDir)
 }
-
-val cleanJmhJar by tasks.getting(Task::class)
-
-val clean by tasks.getting(Task::class) {
-    dependsOn(cleanJmhJar)
-}

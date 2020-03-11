@@ -103,4 +103,16 @@ open class ReadLineBenchmark {
         check(h == baselineHash)
         return h
     }
+
+    @Benchmark
+    fun readLine6(): Int {
+        val input = input()
+        var h = 0
+        while (true) {
+            val line = LineReader6.readLine(input, charset) ?: break
+            h += line.hashCode()
+        }
+        check(h == baselineHash)
+        return h
+    }
 }
