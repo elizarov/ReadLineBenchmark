@@ -13,7 +13,10 @@ import java.util.concurrent.*
 open class ReadLineBenchmark {
     private val charset = Charsets.UTF_8
     private val n = 1_000_000
-    private val bytes = (1..n).joinToString("\r\n").toByteArray(charset)
+    private val text = (1..n).joinToString("\r\n") {
+        if (it % 1000 == 0) "x".repeat(1000) else it.toString() // periodic long string
+    }
+    private val bytes = text.toByteArray(charset)
     private val baselineHash = bufferedReader()
 
     private fun input() = ByteArrayInputStream(bytes)
@@ -82,7 +85,19 @@ open class ReadLineBenchmark {
         val input = input()
         var h = 0
         while (true) {
-            val line = LineReader3.readLine(input, charset) ?: break
+            val line = LineReader4.readLine(input, charset) ?: break
+            h += line.hashCode()
+        }
+        check(h == baselineHash)
+        return h
+    }
+
+    @Benchmark
+    fun readLine5(): Int {
+        val input = input()
+        var h = 0
+        while (true) {
+            val line = LineReader5.readLine(input, charset) ?: break
             h += line.hashCode()
         }
         check(h == baselineHash)
