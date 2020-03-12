@@ -118,10 +118,7 @@ internal object LineReader6 {
 
     // Slow path -- only on charset change
     private fun updateCharset(charset: Charset) {
-        val decoder: CharsetDecoder = charset.newDecoder()
-        require(decoder.maxCharsPerByte() <= 1) { "Encodings with multiple chars per byte are not supported" }
-        // Only assign decoder if the above check passes, otherwise throw on every readLine call
-        this.decoder = decoder
+        decoder = charset.newDecoder()
         // try decoding ASCII line separator to see if this charset (like UTF-8) encodes it directly
         byteBuf.clear()
         charBuf.clear()
