@@ -84,19 +84,18 @@ internal object LineReader6 {
         chars: CharArray, charBuf: CharBuffer, sb: StringBuilder
     ): Int {
         while (true) {
-            decoder.decode(byteBuf, charBuf, endOfInput).run {
-                if (isError) {
-                    resetAll() // so that next call to readLine starts from clean state
-                    throwException()
-                }
+            val coderResult: CoderResult = decoder.decode(byteBuf, charBuf, endOfInput)
+            if (coderResult.isError) {
+                resetAll() // so that next call to readLine starts from clean state
+                coderResult.throwException()
             }
             val nChars = charBuf.position()
-            if (nChars < BUFFER_SIZE) return nChars // has room in buffer -- everything was decoded, done
-            // buffer is full -- offload everything from charBuf but last char into sb
-            sb.append(chars, 0, BUFFER_SIZE - 1)
+            if (!coderResult.isOverflow) return nChars // has room in buffer -- everything possible was decoded
+            // overflow (charBuf is full) -- offload everything from charBuf but last char into sb
+            sb.append(chars, 0, nChars - 1)
             charBuf.position(0)
             charBuf.limit(BUFFER_SIZE)
-            charBuf.put(chars[BUFFER_SIZE - 1]) // retain last char
+            charBuf.put(chars[nChars - 1]) // retain last char
         }
     }
 
