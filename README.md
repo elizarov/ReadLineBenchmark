@@ -1,28 +1,37 @@
 # Benchmarks for various implementations of Kotlin readLine
 
+The test set operation consists of parsing 1M short lines containing consecutive integers starting from 1,
+where every 1000th integer is replaced with "long line" of 1000 characters. 
+The `xxxBuf1024` benchmarks show the effect of processing every line via the fastest available path in the code 
+(when the whole line fits into the buffer).
+
 ```
 # CPU: Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz
 # VM version: JDK 1.8.0_181, Java HotSpot(TM) 64-Bit Server VM, 25.181-b13
 
-Benchmark                          Mode  Cnt    Score   Error  Units
-ReadLineBenchmark.bufferedReader   avgt   10   24.262 ± 1.187  ms/op
-ReadLineBenchmark.readLine0Kotlin  avgt   10  181.997 ± 4.093  ms/op
-ReadLineBenchmark.readLine1        avgt   10   97.824 ± 5.454  ms/op
-ReadLineBenchmark.readLine2        avgt   10   98.144 ± 3.688  ms/op
-ReadLineBenchmark.readLine3        avgt   10   87.376 ± 2.598  ms/op
-ReadLineBenchmark.readLine4        avgt   10   89.167 ± 4.360  ms/op
-ReadLineBenchmark.readLine5        avgt   10   78.017 ± 2.548  ms/op
-ReadLineBenchmark.readLine6        avgt   10   61.786 ± 2.381  ms/op
+Benchmark                           Mode  Cnt    Score   Error  Units
+ReadLineBenchmark.bufferedReader    avgt   10   23.271 ± 0.175  ms/op
+ReadLineBenchmark.readLine0Kotlin   avgt   10  198.832 ± 0.626  ms/op
+ReadLineBenchmark.readLine1         avgt   10   97.584 ± 6.108  ms/op
+ReadLineBenchmark.readLine2         avgt   10   97.331 ± 5.124  ms/op
+ReadLineBenchmark.readLine3         avgt   10   91.872 ± 5.214  ms/op
+ReadLineBenchmark.readLine4         avgt   10   82.428 ± 4.486  ms/op
+ReadLineBenchmark.readLine5         avgt   10   65.602 ± 4.337  ms/op
+ReadLineBenchmark.readLine6         avgt   10   64.728 ± 3.724  ms/op
+ReadLineBenchmark.readLine6Buf1024  avgt   10   58.832 ± 3.199  ms/op
+ReadLineBenchmark.readLine7         avgt   10   58.653 ± 3.481  ms/op
 
 # VM options: -XX:TieredStopAtLevel=1
 
-Benchmark                          Mode  Cnt    Score     Error  Units
-ReadLineBenchmark.bufferedReader   avgt   10   35.280 ±   0.314  ms/op
-ReadLineBenchmark.readLine0Kotlin  avgt   10  465.802 ± 145.714  ms/op
-ReadLineBenchmark.readLine1        avgt   10  229.406 ±  10.222  ms/op
-ReadLineBenchmark.readLine2        avgt   10  223.688 ±   9.973  ms/op
-ReadLineBenchmark.readLine3        avgt   10  203.236 ±   8.941  ms/op
-ReadLineBenchmark.readLine4        avgt   10  195.250 ±  10.543  ms/op
-ReadLineBenchmark.readLine5        avgt   10  134.734 ±   9.185  ms/op
-ReadLineBenchmark.readLine6        avgt   10  117.175 ±   8.384  ms/op
+Benchmark                           Mode  Cnt    Score    Error  Units
+ReadLineBenchmark.bufferedReader    avgt   10   35.355 ±  0.489  ms/op
+ReadLineBenchmark.readLine0Kotlin   avgt   10  424.146 ± 10.130  ms/op
+ReadLineBenchmark.readLine1         avgt   10  216.586 ± 10.122  ms/op
+ReadLineBenchmark.readLine2         avgt   10  221.682 ± 10.315  ms/op
+ReadLineBenchmark.readLine3         avgt   10  203.571 ± 10.565  ms/op
+ReadLineBenchmark.readLine4         avgt   10  196.537 ± 13.462  ms/op
+ReadLineBenchmark.readLine5         avgt   10  134.433 ±  9.343  ms/op
+ReadLineBenchmark.readLine6         avgt   10  115.893 ±  7.359  ms/op
+ReadLineBenchmark.readLine6Buf1024  avgt   10  113.296 ±  8.826  ms/op
+ReadLineBenchmark.readLine7         avgt   10   87.552 ±  4.142  ms/op
 ```
