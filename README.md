@@ -34,4 +34,18 @@ ReadLineBenchmark.readLine5         avgt   10  134.433 ±  9.343  ms/op
 ReadLineBenchmark.readLine6         avgt   10  115.893 ±  7.359  ms/op
 ReadLineBenchmark.readLine6Buf1024  avgt   10  113.296 ±  8.826  ms/op
 ReadLineBenchmark.readLine7         avgt   10   87.552 ±  4.142  ms/op
+
+# VM version: JDK 11.0.6, Java HotSpot(TM) 64-Bit Server VM, 11.0.6+8-LTS
+
+Benchmark                           Mode  Cnt    Score   Error  Units
+ReadLineBenchmark.bufferedReader    avgt   10   27.170 ± 0.129  ms/op
+ReadLineBenchmark.readLine0Kotlin   avgt   10  211.938 ± 0.139  ms/op
+ReadLineBenchmark.readLine1         avgt   10  115.319 ± 0.219  ms/op
+ReadLineBenchmark.readLine2         avgt   10  116.285 ± 0.178  ms/op
+ReadLineBenchmark.readLine3         avgt   10  102.462 ± 0.390  ms/op
+ReadLineBenchmark.readLine4         avgt   10   95.076 ± 0.575  ms/op
+ReadLineBenchmark.readLine5         avgt   10   76.679 ± 0.189  ms/op
+ReadLineBenchmark.readLine6         avgt   10   62.578 ± 0.127  ms/op
+ReadLineBenchmark.readLine6Buf1024  avgt   10   61.511 ± 0.138  ms/op
+ReadLineBenchmark.readLine7         avgt   10   51.822 ± 0.095  ms/op
 ```

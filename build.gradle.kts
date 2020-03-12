@@ -10,13 +10,13 @@ repositories {
 }
 
 jmh {
-    jmhVersion = "1.21"
+    jmhVersion = "1.23"
     failOnError = true
 }
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.openjdk.jmh:jmh-core:1.21")
+    implementation("org.openjdk.jmh:jmh-core:${jmh.jmhVersion}")
 }
 
 tasks.withType<KotlinCompile> {
