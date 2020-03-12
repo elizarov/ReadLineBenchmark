@@ -25,6 +25,7 @@ tasks.withType<KotlinCompile> {
 
 sourceSets["jmh"].java.srcDirs("src")
 
+// NOTE: To build benchmarks.jar use: gradlew --no-daemon clean jmhJar
 val jmhJar by tasks.getting(Jar::class) {
     archiveBaseName.set("benchmarks")
     archiveClassifier.set("")
