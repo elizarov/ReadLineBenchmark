@@ -129,11 +129,35 @@ open class ReadLineBenchmark {
     }
 
     @Benchmark
+    fun readLine6NoLV(): Int {
+        val input = input()
+        var h = 0
+        while (true) {
+            val line = LineReader6NoLV.readLine(input, charset) ?: break
+            h += line.hashCode()
+        }
+        check(h == baselineHash)
+        return h
+    }
+
+    @Benchmark
     fun readLine7(): Int {
         val input = input()
         var h = 0
         while (true) {
             val line = LineReader7.readLine(input, charset) ?: break
+            h += line.hashCode()
+        }
+        check(h == baselineHash)
+        return h
+    }
+
+    @Benchmark
+    fun readLine7NoLV(): Int {
+        val input = input()
+        var h = 0
+        while (true) {
+            val line = LineReader7NoLV.readLine(input, charset) ?: break
             h += line.hashCode()
         }
         check(h == baselineHash)
